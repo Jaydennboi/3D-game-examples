@@ -7,10 +7,10 @@ public class JumpingWithJohn : MonoBehaviour
     public int score = 0;
     public float turnSpeed = 20;
     public float moveSpeed = 1f;
-    public float JumpForce = 10f;
-    public float GravityModifier = 1f;
+    public float jumpForce = 10f;
+    public float gravityModifier = 1f;
     public float outOfBounds = -10f;
-    public bool IsOnGround = true;
+    public bool isOnGround = true;
     public bool isAtCheckpoint = false;
     public GameObject checkpointAreaObject;
     public GameObject finishAreaObject;
@@ -30,34 +30,21 @@ public class JumpingWithJohn : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         Physics.gravity = _defaultGravity;
         //Debug.Log(Physics.gravity);
-        Physics.gravity *= GravityModifier;
+        Physics.gravity *= gravityModifier;
         //Debug.Log(Physics.gravity);
         _startingPostion = transform.position;
         _collectibles = GameObject.FindGameObjectsWithTag("Collectible-Return");
+       
     }
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && IsOnGround)
+        if(Input.GetKeyDown(KeyCode.Space) && isOnGround)
         {
-            _rigidbody.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
-            IsOnGround = false;
+            _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            isOnGround = false;
         }
-
-        if(transform.position.y < outOfBounds)
-        {
-            if(isAtCheckpoint)
-            {
-                ReturningCollectibles();
-                transform.position = _checkpointPosition;
-            }
-            else
-            {
-                ReturningCollectibles();
-                transform.position = _startingPostion;
-            }
-            
-        }
+        
     }
 
     // Update is called once per frame
@@ -92,7 +79,7 @@ public class JumpingWithJohn : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            IsOnGround = true;
+            isOnGround = true;
         }
 
         if (collision.gameObject.CompareTag("Spinner"))
@@ -147,4 +134,5 @@ public class JumpingWithJohn : MonoBehaviour
             _collectibles[i].GetComponent<Collectibles>().ReturnCollectibles();
         }
     }
+
 }

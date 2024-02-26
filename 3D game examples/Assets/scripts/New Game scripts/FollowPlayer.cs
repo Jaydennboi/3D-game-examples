@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class cameraFollowplaceholder : MonoBehaviour
+public class FollowPlayer : MonoBehaviour
 {
-
-    public Transform objectToFollow;
+   public Transform objectToFollow;
     private Vector3 _offset;
 
     // Start is called before the first frame update
